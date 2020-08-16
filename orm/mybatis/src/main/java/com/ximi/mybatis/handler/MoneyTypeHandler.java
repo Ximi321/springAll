@@ -43,6 +43,6 @@ public class MoneyTypeHandler extends BaseTypeHandler<Money> {
     }
 
     private Money parseMoney(Long amount) {
-        return Money.of(CurrencyUnit.of("CNY"), amount / 10);
+        return Money.of(CurrencyUnit.of("CNY"), amount / 100);
 }
 }
