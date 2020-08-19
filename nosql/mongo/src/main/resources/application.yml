@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://ximi:123456@192.168.99.100:27017/test?authSource=admin
