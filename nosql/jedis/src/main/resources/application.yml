@@ -1,0 +1,5 @@
+jedis:
+  host: 192.168.99.100
+  maxTotal: 5
+  maxIdle: 5
+  testOnBorrow: true
