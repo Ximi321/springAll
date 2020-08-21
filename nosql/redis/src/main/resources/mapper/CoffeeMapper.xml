@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ximi.redis.mapper.CoffeeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ximi.redis.entity.Coffee">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="price" property="price" typeHandler="com.ximi.redis.handler.MoneyTypeHandler" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, price, create_time, update_time
+    </sql>
+
+    <select id="findByName" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from
+          coffee
+        where 1 = 1
+          and name = #{name}
+    </select>
+
+</mapper>
