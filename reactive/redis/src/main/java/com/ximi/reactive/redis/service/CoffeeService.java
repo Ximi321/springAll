@@ -1,5 +1,6 @@
-package com.ximi.reactive.redis.model;
+package com.ximi.reactive.redis.service;
 
+import com.ximi.reactive.redis.model.Coffee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
