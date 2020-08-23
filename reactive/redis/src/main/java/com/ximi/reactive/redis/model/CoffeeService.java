@@ -15,6 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * reactiveRedisTemplate 简单的演示视例
+ *
+ * @author Ximi
+ * @since 2020/08/23
+ */
 @Service
 @Slf4j
 public class CoffeeService {
@@ -35,22 +41,22 @@ public class CoffeeService {
         reactiveRedisTemplate.opsForHash()
                 .get(coffee_key, name)
                 .flatMap(value -> {
-                    log.info("flatMap value {} {}",value,Thread.currentThread().getName());
+                    log.info("flatMap value {} {}", value, Thread.currentThread().getName());
                     return Mono.just(Coffee.builder().name(name).price((Long) value).build());
                 })
                 .defaultIfEmpty(getCoffeeFromMysql(name))
 //                .subscribeOn(Schedulers.single())
                 .doFinally(signalType -> {
-                    log.info("do finish {} {}",signalType,Thread.currentThread().getName());
+                    log.info("do finish {} {}", signalType, Thread.currentThread().getName());
                     latch.countDown();
                 })
                 .subscribe(value -> {
-                    log.info("subscribe value {} {}",value,Thread.currentThread().getName());
+                    log.info("subscribe value {} {}", value, Thread.currentThread().getName());
                     coffeeList.add((Coffee) value);
-                },e ->{
-                    log.error("e",e);
+                }, e -> {
+                    log.error("e", e);
                 });
-                latch.await();
+        latch.await();
         return coffeeList.size() > 0 ? coffeeList.get(0) : null;
     }
 
@@ -68,10 +74,10 @@ public class CoffeeService {
 
         if (coffee != null) {
             reactiveRedisTemplate.opsForHash()
-                    .put(coffee_key,name,coffee.getPrice())
+                    .put(coffee_key, name, coffee.getPrice())
                     .subscribeOn(Schedulers.single())
                     .doFinally(signalType -> {
-                        log.info("signalType-1 {} {}",signalType,Thread.currentThread().getName());
+                        log.info("signalType-1 {} {}", signalType, Thread.currentThread().getName());
                     })
                     .subscribe();
         }
