@@ -1,0 +1,10 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: train-customer
+
+  cloud:
+    zookeeper:
+      connect-string: 192.168.99.100:2181
