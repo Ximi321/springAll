@@ -1,0 +1,11 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: train-customer
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.99.100:8848
