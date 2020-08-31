@@ -1,0 +1,24 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: train-service
+
+  datasource:
+    username: ximi
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.99.100:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://192.168.99.100:8848
+
