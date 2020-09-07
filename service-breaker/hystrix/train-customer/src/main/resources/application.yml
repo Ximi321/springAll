@@ -1,0 +1,38 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: train-customer
+
+  cloud:
+    consul:
+      host: 192.168.99.100
+      port: 8500
+      discovery:
+        #consul 部署在本地环境的docker中,docker 通过192.168.99.1来访问宿主机#
+        health-check-url: http://192.168.99.1:8030/actuator/health
+        prefer-ip-address: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+  hystrix:
+    enabled: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
