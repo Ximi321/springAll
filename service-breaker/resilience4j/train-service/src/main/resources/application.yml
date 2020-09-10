@@ -1,0 +1,56 @@
+server:
+  port: 8020
+
+spring:
+  application:
+    name: train-service
+
+  datasource:
+    username: ximi
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.99.100:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+  cloud:
+    consul:
+      host: 192.168.99.100
+      port: 8500
+      discovery:
+        #consul 部署在本地环境的docker中,docker 通过192.168.99.1来访问宿主机#
+        health-check-url: http://192.168.99.1:8020/actuator/health
+        prefer-ip-address: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+resilience4j:
+  ratelimiter:
+    instances:
+      teacher:
+        limitForPeriod: 3
+        limitRefreshPeriod: 10s
+        timeoutDuration: 0
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 100
+
+      student:
+        limitForPeriod: 3
+        limitRefreshPeriod: 5s
+        timeoutDuration: 0
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 100
+
+
